@@ -1,11 +1,24 @@
 package br.edu.ifpe.oxefood.api.empresa;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class EmpresaService {
+
+    public List<Empresa> listar() {
+
+        return repository.findAll();
+    }
+
+    public Empresa buscarPorId(Long id) {
+
+        return repository.findById(id).get();
+    }
+
 
     private final EmpresaRepository repository;
 
