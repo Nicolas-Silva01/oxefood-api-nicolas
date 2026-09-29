@@ -9,6 +9,15 @@ import jakarta.transaction.Transactional;
 @Service
 public class ClienteService {
 
+    @Transactional
+    public void remover(Long id) {
+
+        Cliente cliente = repository.findById(id).get();
+        cliente.setHabilitado(false);
+
+        repository.save(cliente);
+    }
+
     public List<Cliente> listar() {
 
         return repository.findAll();

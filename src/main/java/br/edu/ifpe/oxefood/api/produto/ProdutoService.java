@@ -9,6 +9,15 @@ import jakarta.transaction.Transactional;
 @Service
 public class ProdutoService {
 
+    @Transactional
+    public void remover(Long id) {
+
+        Produto produto = repository.findById(id).get();
+        produto.setHabilitado(false);
+
+        repository.save(produto);
+    }
+
     public List<Produto> listar() {
 
         return repository.findAll();
