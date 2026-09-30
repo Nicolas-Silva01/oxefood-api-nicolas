@@ -10,6 +10,15 @@ import jakarta.transaction.Transactional;
 public class EmpresaService {
 
     @Transactional
+    public Empresa atualizar(EmpresaDTO dto) {
+
+        Empresa empresa = build(dto);
+        return repository.save(empresa);
+
+    }
+
+
+    @Transactional
     public void remover(Long id) {
 
         Empresa empresa = repository.findById(id).get();
@@ -37,7 +46,17 @@ public class EmpresaService {
 
     public Empresa build(EmpresaDTO dto) {
 
-        Empresa empresa = new Empresa();
+        Empresa empresa = null;
+
+      if (dto.getId() == null) { //Montado para o cadastro
+
+         empresa = new Empresa();
+
+      } else { //Consultado para a alteração
+
+         empresa = repository.findById(dto.getId()).get();
+      }
+
         empresa.setSite(dto.getSite());
         empresa.setCnpj(dto.getCnpj());
         empresa.setInscricaoEstadual(dto.getInscricaoEstadual());
