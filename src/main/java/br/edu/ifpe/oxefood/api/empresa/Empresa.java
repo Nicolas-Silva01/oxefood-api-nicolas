@@ -24,16 +24,16 @@ public class Empresa extends EntidadeAuditavel  {
     @Column
     private String site;
     
-    @Column
+    @Column (unique = true, nullable = false, length = 14)
     private String cnpj;
     
     @Column
     private String inscricaoEstadual;
     
-    @Column
+    @Column (nullable = false, length = 100)
     private String nomeEmpresarial;
     
-    @Column
+    @Column (nullable = false, length = 100)
     private String nomeFantasia;
 
     @Column

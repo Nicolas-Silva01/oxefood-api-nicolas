@@ -24,10 +24,10 @@ public class Produto extends EntidadeAuditavel  {
     @Column
     private String codigo;
     
-    @Column
+    @Column (nullable = false, length = 1000)
     private String titulo;
     
-    @Column
+    @Column (nullable = false, length = 100000)
     private String descricao;
     
     @Column

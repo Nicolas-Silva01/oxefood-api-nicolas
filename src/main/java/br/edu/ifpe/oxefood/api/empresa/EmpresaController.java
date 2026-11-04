@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/empresa")
 public class EmpresaController {
 
     @PutMapping
-    public ResponseEntity<Empresa> atualizar(@RequestBody EmpresaDTO dto) {
+    public ResponseEntity<Empresa> atualizar(@RequestBody @Valid EmpresaDTO dto) {
 
 	    Empresa empresaAtualizada = empresaService.atualizar(dto);
 	    return ResponseEntity.ok(empresaAtualizada);
@@ -26,7 +28,7 @@ public class EmpresaController {
 
 
     @DeleteMapping("/{id}")
-   public ResponseEntity<Void> remover(@PathVariable Long id) {
+   public ResponseEntity<Void> remover(@PathVariable @Valid Long id) {
 
         empresaService.remover(id);
         return ResponseEntity.noContent().build();
@@ -40,7 +42,7 @@ public class EmpresaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Empresa> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Empresa> buscarPorId(@PathVariable @Valid Long id) {
 
         return ResponseEntity.ok(empresaService.buscarPorId(id));
     }
@@ -53,7 +55,7 @@ public class EmpresaController {
     }
 
     @PostMapping
-    public ResponseEntity<Empresa> cadastrar(@RequestBody EmpresaDTO dto) {
+    public ResponseEntity<Empresa> cadastrar(@RequestBody @Valid EmpresaDTO dto) {
 
         Empresa empresaCadastrado = empresaService.cadastrar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(empresaCadastrado);

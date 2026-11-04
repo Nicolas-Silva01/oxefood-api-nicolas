@@ -13,20 +13,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/api/produto")
 public class ProdutoController {
 
     @PutMapping
-    public ResponseEntity<Produto> atualizar(@RequestBody ProdutoDTO dto) {
+    public ResponseEntity<Produto> atualizar(@RequestBody @Valid ProdutoDTO dto) {
 
 	    Produto produtoAtualizado = produtoService.atualizar(dto);
 	    return ResponseEntity.ok(produtoAtualizado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable Long id) {
+    public ResponseEntity<Void> remover(@PathVariable @Valid Long id) {
 
         produtoService.remover(id);
         return ResponseEntity.noContent().build();
@@ -40,7 +42,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Produto> buscarPorId(@PathVariable @Valid Long id) {
 
         return ResponseEntity.ok(produtoService.buscarPorId(id));
     }
@@ -53,7 +55,7 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> cadastrar(@RequestBody ProdutoDTO dto) {
+    public ResponseEntity<Produto> cadastrar(@RequestBody @Valid ProdutoDTO dto) {
 
         Produto produtoCadastrado = produtoService.cadastrar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoCadastrado);

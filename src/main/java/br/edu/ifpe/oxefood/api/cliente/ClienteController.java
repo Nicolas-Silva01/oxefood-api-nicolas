@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/cliente")
 public class ClienteController {
 
     @PutMapping
-    public ResponseEntity<Cliente> atualizar(@RequestBody ClienteDTO dto) {
+    public ResponseEntity<Cliente> atualizar(@RequestBody @Valid ClienteDTO dto) {
 
 	    Cliente clienteAtualizado = clienteService.atualizar(dto);
 	    return ResponseEntity.ok(clienteAtualizado);
@@ -26,7 +28,7 @@ public class ClienteController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable Long id) {
+    public ResponseEntity<Void> remover(@PathVariable @Valid Long id) {
 
         clienteService.remover(id);
         return ResponseEntity.noContent().build();
@@ -41,7 +43,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Cliente> buscarPorId(@PathVariable @Valid Long id) {
 
         return ResponseEntity.ok(clienteService.buscarPorId(id));
     }
@@ -51,7 +53,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> cadastrar(@RequestBody ClienteDTO dto) {
+    public ResponseEntity<Cliente> cadastrar(@RequestBody @Valid  ClienteDTO dto) {
 
         Cliente clienteCadastrado = clienteService.cadastrar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteCadastrado);

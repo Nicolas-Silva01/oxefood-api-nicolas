@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.edu.ifpe.oxefood.exception.ProdutoException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -67,6 +68,11 @@ public class ProdutoService {
 
     @Transactional
     public Produto cadastrar(ProdutoDTO dto) {
+
+        if (dto.getValorUnitario() < 20 && dto.getValorUnitario() > 100) {
+        		throw new ProdutoException(ProdutoException.MSG_VALOR_MINIMO_PRODUTO);
+       	}
+        
 
         Produto produto = build(dto);
         produto.setHabilitado(true);

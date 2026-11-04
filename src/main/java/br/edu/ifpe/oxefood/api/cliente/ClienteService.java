@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.edu.ifpe.oxefood.exception.ClienteException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -65,6 +66,10 @@ public class ClienteService {
 
     @Transactional
     public Cliente cadastrar(ClienteDTO dto) {
+
+        if (dto.getFoneCelular() != null && !dto.getFoneCelular().startsWith("81")) {
+            throw new ClienteException(ClienteException.MSG_FONE_81_CLIENTE);
+        }
 
         Cliente cliente = build(dto);
         cliente.setHabilitado(true);
