@@ -40,8 +40,11 @@ public class ProdutoService {
 
     private final ProdutoRepository repository;
 
-    public ProdutoService(ProdutoRepository repository) {
+    private final CategoriaProdutoRepository categoriaProdutoRepository;
+
+    public ProdutoService(ProdutoRepository repository, CategoriaProdutoRepository categoriaProdutoRepository) {
        this.repository = repository;
+       this.categoriaProdutoRepository = categoriaProdutoRepository;
     }
 
     public Produto build(ProdutoDTO dto) {
@@ -56,6 +59,7 @@ public class ProdutoService {
 
          produto = repository.findById(dto.getId()).get();
       }
+        produto.setCategoria(categoriaProdutoRepository.findById(dto.getIdCategoria()).get());
         produto.setCodigo(dto.getCodigo());
         produto.setTitulo(dto.getTitulo());
         produto.setDescricao(dto.getDescricao());
@@ -69,7 +73,7 @@ public class ProdutoService {
     @Transactional
     public Produto cadastrar(ProdutoDTO dto) {
 
-        if (dto.getValorUnitario() < 20 && dto.getValorUnitario() > 100) {
+        if (dto.getValorUnitario() > 20 && dto.getValorUnitario() < 100) {
         		throw new ProdutoException(ProdutoException.MSG_VALOR_MINIMO_PRODUTO);
        	}
         

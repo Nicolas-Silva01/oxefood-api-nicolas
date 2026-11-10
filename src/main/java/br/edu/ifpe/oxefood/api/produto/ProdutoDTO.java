@@ -15,12 +15,14 @@ public class ProdutoDTO {
 
     private Long id;
 
+    private Long idCategoria;
+
     private String codigo;
 
 
     @NotNull(message = "O Título é de preenchimento obrigatório")
-   @NotEmpty(message = "O Título é de preenchimento obrigatório")
-   @Length(max = 1000, message = "O Título deverá ter no máximo {max} caracteres")
+    @NotEmpty(message = "O Título é de preenchimento obrigatório")
+    @Length(max = 1000, message = "O Título deverá ter no máximo {max} caracteres")
 
     private String titulo;
 
